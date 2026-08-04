@@ -1,26 +1,44 @@
 import React from "react";
-import Header from "./components/Header";
-import SearchForm from "./components/SearchForm";
-import About from "./components/About";
-import Footer from "./components/Footer";
+import { Routes, Route } from "react-router-dom";
+import { AuthProvider } from "./contexts/AuthContext";
+import Header from "./components/Header/Header";
+import Navbar from "./components/Navbar/Navbar";
+import Footer from "./components/Footer/Footer";
+import ProtectedRoute from "./components/ProtectedRoute";
+import HomePage from "./pages/HomePage/HomePage";
+import AboutPage from "./pages/AboutPage/AboutPage";
+import ProfilePage from "./pages/ProfilePage/ProfilePage";
+import LoginPage from "./pages/LoginPage/LoginPage";
+import RegisterPage from "./pages/RegisterPage/RegisterPage";
 
 function App() {
-  const handleSearch = (searchTerm) => {
-    console.log("Searching for:", searchTerm);
-  };
-
   return (
-    <div
-      className="app"
-      style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}
-    >
-      <Header />
-      <main className="app__content" style={{ flex: 1 }}>
-        <SearchForm onSearch={handleSearch} />
-        <About />
-      </main>
-      <Footer />
-    </div>
+    <AuthProvider>
+      <div
+        className="app"
+        style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}
+      >
+        <Header />
+        <Navbar />
+        <main className="app__content" style={{ flex: 1 }}>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/about" element={<AboutPage />} />
+            <Route
+              path="/profile"
+              element={
+                <ProtectedRoute>
+                  <ProfilePage />
+                </ProtectedRoute>
+              }
+            />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/register" element={<RegisterPage />} />
+          </Routes>
+        </main>
+        <Footer />
+      </div>
+    </AuthProvider>
   );
 }
 
