@@ -1,11 +1,10 @@
-import React from "react";
 import { Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContext";
-import Header from "./components/Header/Header";
 import Navbar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer/Footer";
 import ProtectedRoute from "./components/ProtectedRoute";
 import HomePage from "./pages/HomePage/HomePage";
+import ExplorePage from "./pages/ExplorePage/ExplorePage";
 import AboutPage from "./pages/AboutPage/AboutPage";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import LoginPage from "./pages/LoginPage/LoginPage";
@@ -18,11 +17,11 @@ function App() {
         className="app"
         style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}
       >
-        <Header />
         <Navbar />
         <main className="app__content" style={{ flex: 1 }}>
           <Routes>
             <Route path="/" element={<HomePage />} />
+            <Route path="/explore" element={<ExplorePage />} />
             <Route path="/about" element={<AboutPage />} />
             <Route
               path="/profile"

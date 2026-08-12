@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "./SearchForm.css";
 
 function SearchForm({ onSearch }) {
@@ -12,18 +12,25 @@ function SearchForm({ onSearch }) {
   };
 
   return (
-    <form className="search-form" onSubmit={handleSubmit}>
-      <input
-        type="text"
-        className="search-form__input"
-        placeholder="Search for a plant (e.g. Monstera, Fern)..."
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-      />
-      <button type="submit" className="search-form__button">
-        Search
-      </button>
-    </form>
+    <div className="hero">
+      <h1 className="hero__title">Find the right care for every plant</h1>
+      <p className="hero__subtitle">
+        Search by name, or browse what grows best where you live.
+      </p>
+
+      <form className="search-bar" onSubmit={handleSubmit}>
+        <input
+          type="text"
+          className="search-bar__input"
+          placeholder="Search for a plant (e.g. Monstera, Fern)..."
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+        />
+        <button type="submit" className="search-bar__button">
+          SEARCH
+        </button>
+      </form>
+    </div>
   );
 }
 

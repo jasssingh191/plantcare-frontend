@@ -1,12 +1,10 @@
 .footer {
-  background-color: #1b5e20;
-  color: #ffffff;
-  padding: 1.5rem 1rem;
+  padding: 40px 16px;
   text-align: center;
   margin-top: auto;
 }
 
 .footer__copyright {
-  font-size: 0.9rem;
-  opacity: 0.85;
+  font-size: 14px;
+  color: var(--text-secondary);
 }

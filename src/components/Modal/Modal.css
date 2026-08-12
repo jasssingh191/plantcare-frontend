@@ -10,20 +10,21 @@
 
 .modal__content {
   position: relative;
-  background: #ffffff;
-  border-radius: 12px;
-  padding: 2rem;
-  max-width: 500px;
+  background: var(--surface-card);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-modal);
+  padding: 32px;
+  max-width: 420px;
   width: 90%;
 }
 
 .modal__close {
   position: absolute;
-  top: 0.75rem;
-  right: 0.75rem;
+  top: 16px;
+  right: 16px;
   background: none;
   border: none;
-  font-size: 1.5rem;
+  font-size: 24px;
   cursor: pointer;
   line-height: 1;
 }

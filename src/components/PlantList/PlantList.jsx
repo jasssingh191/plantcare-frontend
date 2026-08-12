@@ -1,4 +1,3 @@
-import React from "react";
 import PlantCard from "../PlantCard/PlantCard";
 import "./PlantList.css";
 

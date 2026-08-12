@@ -1,5 +1,86 @@
 .register-page {
   max-width: 400px;
-  margin: 2rem auto;
-  padding: 0 1.5rem;
+  margin: 0 auto;
+}
+
+.register-page__title {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin: 0 0 24px;
+}
+
+.register-page__form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.register-page__field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.register-page__field label {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.register-page__field input {
+  padding: 12px 14px;
+  border: 1px solid var(--border-soft);
+  border-radius: 10px;
+  font-size: 14px;
+  color: var(--text-primary);
+  background: var(--surface-card);
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.register-page__field input::placeholder {
+  color: var(--text-secondary);
+}
+
+.register-page__field input:focus {
+  border-color: var(--text-primary);
+}
+
+.register-page__error {
+  font-size: 13px;
+  color: var(--color-error);
+  margin: 0;
+}
+
+.register-page__submit {
+  width: 100%;
+  padding: 14px;
+  margin-top: 8px;
+  border-radius: var(--radius-pill);
+  background: var(--text-primary);
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.register-page__submit:hover {
+  opacity: 0.85;
+}
+
+.register-page__switch {
+  text-align: center;
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin: 16px 0 0;
+}
+
+.register-page__switch button {
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--accent-leaf-deep);
+  font-weight: 700;
+  font-size: 13px;
+  cursor: pointer;
 }
