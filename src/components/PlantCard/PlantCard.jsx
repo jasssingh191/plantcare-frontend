@@ -1,31 +1,88 @@
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import favoriteDefaultIcon from "../../assets/favorite-default.png";
+import favoriteHoverIcon from "../../assets/favorite-hover.png";
+import favoriteMarkedIcon from "../../assets/favorite-marked.png";
+import closeDefaultIcon from "../../assets/close-default.png";
+import closeHoverIcon from "../../assets/close-hover-click.png";
 import "./PlantCard.css";
 
-function PlantCard({ plant }) {
+function PlantCard({ id, name, sci, imageUrl, showRemove = false, onRemove }) {
+  const [imageFailed, setImageFailed] = useState(false);
+  const [isFavorited, setIsFavorited] = useState(false);
+  const [isHovering, setIsHovering] = useState(false);
+  const [isRemoveHovering, setIsRemoveHovering] = useState(false);
+  const showImage = Boolean(imageUrl) && !imageFailed;
+
+  const favoriteIcon = isFavorited
+    ? favoriteMarkedIcon
+    : isHovering
+    ? favoriteHoverIcon
+    : favoriteDefaultIcon;
+
+  const removeIcon = isRemoveHovering ? closeHoverIcon : closeDefaultIcon;
+
   return (
     <article className="plant-card">
-      <div className="plant-card__preview">
-        <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
-          <path d="M12 2C7 4 4 9 4 14a8 8 0 0 0 16 0c0-5-3-10-8-12zm0 18a6 6 0 0 1-6-6c0-3.5 2-7 6-9 4 2 6 5.5 6 9a6 6 0 0 1-6 6z" />
-        </svg>
-      </div>
-      <div className="plant-card__body">
-        <h3 className="plant-card__name">{plant.name}</h3>
-        <p className="plant-card__scientific">{plant.scientificName}</p>
-        <div className="plant-card__badges">
-          <span className="badge badge--water">
-            <svg viewBox="0 0 24 24" width="12" height="12" fill="currentColor">
-              <path d="M12 2c-4 5-7 9.5-7 13a7 7 0 0 0 14 0c0-3.5-3-8-7-13z" />
-            </svg>
-            Every {plant.wateringDays} days
-          </span>
-          <span className="badge badge--light">
-            <svg viewBox="0 0 24 24" width="12" height="12" fill="currentColor">
-              <path d="M12 2l1.8 5.2L19 9l-5.2 1.8L12 16l-1.8-5.2L5 9l5.2-1.8z" />
-            </svg>
-            {plant.light}
-          </span>
+      <Link to={`/plant/${id}`} className="plant-card__link">
+        <div className="plant-card__preview">
+          {showImage && (
+            <img
+              src={imageUrl}
+              alt={name}
+              className="plant-card__image"
+              onError={() => setImageFailed(true)}
+            />
+          )}
+
+          {showRemove ? (
+            <button
+              type="button"
+              className="plant-card__remove"
+              aria-label={`Remove ${name} from your shelf`}
+              onMouseEnter={() => setIsRemoveHovering(true)}
+              onMouseLeave={() => setIsRemoveHovering(false)}
+              onClick={(event) => {
+                event.preventDefault();
+                event.stopPropagation();
+                if (onRemove) onRemove(id);
+              }}
+            >
+              <img
+                src={removeIcon}
+                alt=""
+                className="plant-card__remove-icon"
+                draggable={false}
+              />
+            </button>
+          ) : (
+            <button
+              type="button"
+              className="plant-card__favorite"
+              aria-pressed={isFavorited}
+              aria-label={isFavorited ? "Remove from favorites" : "Add to favorites"}
+              onMouseEnter={() => setIsHovering(true)}
+              onMouseLeave={() => setIsHovering(false)}
+              onClick={(event) => {
+                event.preventDefault();
+                event.stopPropagation();
+                setIsFavorited((prev) => !prev);
+              }}
+            >
+              <img
+                src={favoriteIcon}
+                alt=""
+                className="plant-card__favorite-icon"
+                draggable={false}
+              />
+            </button>
+          )}
         </div>
-      </div>
+        <div className="plant-card__body">
+          <h3 className="plant-card__name">{name}</h3>
+          {sci ? <p className="plant-card__scientific">{sci}</p> : null}
+        </div>
+      </Link>
     </article>
   );
 }

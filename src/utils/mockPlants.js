@@ -1,15 +1,43 @@
-// Placeholder data until the plant API (see utils/plantApi.js) is wired in.
+// Fallback data used when the plant API (see utils/plantApi.js) is
+// unreachable, plus placeholder data for pages not yet wired to it.
+// Shape matches normalizePlantData()'s output / <PlantCard /> props.
 export const REGION_PLANTS = [
-  { id: 1, name: "Golden Pothos", scientificName: "Epipremnum aureum", wateringDays: 8, light: "Medium indirect" },
-  { id: 2, name: "Fiddle Leaf Fig", scientificName: "Ficus lyrata", wateringDays: 9, light: "Bright indirect" },
-  { id: 3, name: "Peace Lily", scientificName: "Spathiphyllum wallisii", wateringDays: 6, light: "Low light" },
-  { id: 4, name: "Monstera Deliciosa", scientificName: "Monstera deliciosa", wateringDays: 7, light: "Bright indirect" },
-  { id: 5, name: "Boston Fern", scientificName: "Nephrolepis exaltata", wateringDays: 3, light: "Partial shade" },
-  { id: 6, name: "Snake Plant", scientificName: "Dracaena trifasciata", wateringDays: 14, light: "Low to bright" },
+  { id: 1, name: "Golden Pothos", sci: "Epipremnum aureum", imageUrl: null },
+  { id: 2, name: "Fiddle Leaf Fig", sci: "Ficus lyrata", imageUrl: null },
+  { id: 3, name: "Peace Lily", sci: "Spathiphyllum wallisii", imageUrl: null },
+  { id: 4, name: "Monstera Deliciosa", sci: "Monstera deliciosa", imageUrl: null },
+  { id: 5, name: "Boston Fern", sci: "Nephrolepis exaltata", imageUrl: null },
+  { id: 6, name: "Snake Plant", sci: "Dracaena trifasciata", imageUrl: null },
 ];
 
 export const DIRECTORY_PLANTS = [
   ...REGION_PLANTS,
-  { id: 7, name: "ZZ Plant", scientificName: "Zamioculcas zamiifolia", wateringDays: 21, light: "Low to indirect" },
-  { id: 8, name: "Spider Plant", scientificName: "Chlorophytum comosum", wateringDays: 7, light: "Medium indirect" },
+  { id: 7, name: "ZZ Plant", sci: "Zamioculcas zamiifolia", imageUrl: null },
+  { id: 8, name: "Spider Plant", sci: "Chlorophytum comosum", imageUrl: null },
 ];
+
+// Fallback detail data for <PlantDetailPage />, used when the live
+// species/details/{id} call fails. Looks up the id against the mock
+// list above so a card clicked from fallback data still opens to a
+// matching detail page instead of a generic "unknown plant" page.
+export function getMockPlantDetails(id) {
+  const base = DIRECTORY_PLANTS.find((plant) => String(plant.id) === String(id));
+
+  return {
+    id,
+    name: base?.name || "Unknown Plant",
+    sci: base?.sci || "",
+    imageUrl: base?.imageUrl || null,
+    description: "No description is available for this plant yet.",
+    watering: "As needed",
+    sunlight: "Not specified",
+    careGuide: {
+      wateringFrequency: "As needed",
+      lightRequirements: "Not specified",
+      humidity: "Not specified",
+      idealTemperature: "Not specified",
+      soilType: "Not specified",
+    },
+    tips: ["Provide consistent watering and bright, indirect light for best results."],
+  };
+}

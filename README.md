@@ -1,16 +1,82 @@
-# React + Vite
+🌿 PlantCare Frontend
+A modern, responsive, and intuitive web application designed for plant enthusiasts to discover plant species, explore detailed care guides, and curate their own personalized digital plant shelf.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+✨ Features
+🔍 Live Database Search: Search for indoor and outdoor plants dynamically using the external plant database API.
 
-Currently, two official plugins are available:
+🌱 Minimalist Card Grid: Clean, scannable plant cards displaying species common names, scientific names, and high-quality photography with fallback mint styling.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+📖 Comprehensive Care Guides: Detailed species view highlighting watering schedules, sunlight requirements, soil preferences, ideal temperature ranges, and plant toxicity notes.
 
-## React Compiler
+🪴 Auth-Gated Digital Shelf: Save favorite plants to a personal digital shelf (requires user login).
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+👤 User Profile & Shelf Management: View saved collections, edit profile info, or remove plants from your shelf in an interactive edit view.
 
-## Expanding the ESLint configuration
+🎨 Modern Responsive UI: Built with custom CSS following modern design tokens (floating stadium navbar, pill buttons, soft shadows, and a gentle #F8F9FA eye-friendly canvas).
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+🛠️ Tech Stack & Dependencies
+Frontend Framework: React 18+ (Vite)
+
+Routing: React Router Dom (v6)
+
+State Management: React Context API (AuthContext)
+
+API Integration: Perenual API / Plant Database Services
+
+Styling: Modular CSS3 with custom variables & flexbox/grid layout design
+
+🚀 Getting Started
+Follow these instructions to get a local copy up and running for development and testing.
+
+Prerequisites
+Node.js (v18.0.0 or higher recommended)
+
+npm or yarn
+
+An active API key from Perenual Plant API (or your chosen plant database provider).
+
+Installation
+Clone the repository:
+
+Bash
+git clone https://github.com/your-username/plantcare-frontend.git
+cd plantcare-frontend
+Install dependencies:
+
+Bash
+npm install
+Configure Environment Variables:
+Create a .env file in the root directory of the project:
+
+Code snippet
+VITE_PERENUAL_API_KEY=your_actual_api_key_here
+Start the local development server:
+
+Bash
+npm run dev
+Open http://localhost:5173 in your browser to view the app!
+
+📁 Project Structure
+Plaintext
+plantcare-frontend/
+├── public/
+├── src/
+│ ├── assets/ # SVGs, icons, and static images
+│ ├── components/ # Reusable UI components
+│ │ ├── Navbar/ # Floating stadium navigation bar
+│ │ ├── SearchForm/ # Hero search input
+│ │ ├── PlantCard/ # Minimal plant card component
+│ │ ├── AuthModal/ # Log in and Sign up modals
+│ │ └── ProtectedRoute/ # Auth protection wrapper
+│ ├── context/ # Global Auth Context & State
+│ ├── pages/ # Route components
+│ │ ├── HomePage/ # Search & regional directory view
+│ │ ├── PlantDetailPage/# Article & care guide view
+│ │ └── ProfilePage/ # Digital shelf & profile management
+│ ├── utils/ # API utilities and data normalizers
+│ │ └── plantApi.js # Fetching & normalization logic
+│ ├── App.jsx # Main router & layout configuration
+│ └── main.jsx # Entry point
+├── .env.example
+├── package.json
+└── README.md

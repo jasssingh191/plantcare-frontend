@@ -1,22 +1,41 @@
 import { useState } from "react";
 import PlantList from "../../components/PlantList/PlantList";
+import { fetchRegionalPlants, searchPlants } from "../../utils/plantApi";
 import { DIRECTORY_PLANTS } from "../../utils/mockPlants";
+import { useAsyncData } from "../../hooks/useAsyncData";
 import "./ExplorePage.css";
 
 function ExplorePage() {
   const [query, setQuery] = useState("");
+  const { data: plants, isLoading, hasError, run } = useAsyncData(
+    fetchRegionalPlants,
+    () => DIRECTORY_PLANTS,
+  );
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Searching directory for:", query);
+    if (!query.trim()) return;
+
+    run(
+      () => searchPlants(query),
+      () => {
+        const matches = DIRECTORY_PLANTS.filter((plant) =>
+          plant.name.toLowerCase().includes(query.toLowerCase()),
+        );
+        return matches.length > 0 ? matches : DIRECTORY_PLANTS;
+      },
+    );
   };
+
+  const allPlants = plants || [];
+  const showEmptyState = !isLoading && hasError && allPlants.length === 0;
 
   return (
     <section className="explore-page">
       <h1 className="explore-page__title">Explore Plant Directory</h1>
       <p className="explore-page__subtitle">
-        Browse our curated collection of indoor and outdoor plants to find
-        your next green companion.
+        Browse our curated collection of indoor and outdoor plants to find your
+        next green companion.
       </p>
 
       <form className="explore-search" onSubmit={handleSubmit}>
@@ -32,7 +51,25 @@ function ExplorePage() {
         </button>
       </form>
 
-      <PlantList plants={DIRECTORY_PLANTS} />
+      {isLoading ? (
+        <div className="plant-list" aria-busy="true">
+          {Array.from({ length: 6 }).map((_, index) => (
+            <div key={index} className="plant-card plant-card--skeleton">
+              <div className="plant-card__preview" />
+              <div className="plant-card__body">
+                <div className="skeleton-line skeleton-line--title" />
+                <div className="skeleton-line skeleton-line--subtitle" />
+              </div>
+            </div>
+          ))}
+        </div>
+      ) : showEmptyState ? (
+        <p className="explore-page__status">
+          Nothing found or something went wrong.
+        </p>
+      ) : (
+        <PlantList plants={allPlants} />
+      )}
     </section>
   );
 }

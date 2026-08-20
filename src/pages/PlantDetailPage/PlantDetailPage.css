@@ -1,0 +1,224 @@
+.plant-detail {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 32px 24px 64px;
+}
+
+.plant-detail__status {
+  font-size: 14px;
+  color: var(--text-secondary);
+  text-align: center;
+  padding: 48px 24px;
+  background: var(--surface-card);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-card);
+}
+
+.plant-detail__hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+  gap: 32px;
+  background: var(--surface-card);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  padding: 24px;
+}
+
+.plant-detail__hero-image {
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  background: #e6f7f0;
+  min-height: 280px;
+}
+
+.plant-detail__hero-image--loading {
+  background: var(--border-soft);
+}
+
+.plant-detail__image {
+  width: 100%;
+  height: 100%;
+  min-height: 280px;
+  object-fit: cover;
+  display: block;
+}
+
+.plant-detail__hero-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.plant-detail__name {
+  font-size: 30px;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin: 0 0 6px;
+}
+
+.plant-detail__sci {
+  font-size: 16px;
+  font-style: italic;
+  color: var(--text-secondary);
+  margin: 0 0 16px;
+}
+
+.plant-detail__description {
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  margin: 0 0 20px;
+}
+
+.plant-detail__badges {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+}
+
+.detail-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: var(--radius-pill);
+  font-size: 13px;
+  font-weight: 600;
+  background: #e3f6ea;
+  color: #1f8a4c;
+}
+
+.detail-tag--sun {
+  background: #fdf1dc;
+  color: #b8791a;
+}
+
+.plant-detail__add-button {
+  align-self: flex-start;
+  padding: 14px 32px;
+  border-radius: var(--radius-pill);
+  background: var(--accent-leaf-vibrant);
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  transition: opacity 0.2s ease;
+}
+
+.plant-detail__add-button:hover:not(:disabled) {
+  opacity: 0.9;
+}
+
+.plant-detail__add-button:disabled {
+  background: var(--accent-leaf-deep);
+  cursor: default;
+}
+
+.plant-detail__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-top: 24px;
+}
+
+.plant-detail__card {
+  background: var(--surface-card);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  padding: 24px;
+}
+
+.plant-detail__card-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 16px;
+}
+
+.plant-detail__spec-list {
+  margin: 0;
+}
+
+.plant-detail__spec-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border-soft);
+  font-size: 14px;
+}
+
+.plant-detail__spec-row:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.plant-detail__spec-row dt {
+  color: var(--text-secondary);
+}
+
+.plant-detail__spec-row dd {
+  margin: 0;
+  font-weight: 700;
+  color: var(--text-primary);
+  text-align: right;
+}
+
+.plant-detail__tips {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.plant-detail__tips li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+
+.plant-detail__tips svg {
+  flex: none;
+  margin-top: 2px;
+  color: var(--accent-leaf-vibrant);
+}
+
+.plant-detail__related {
+  margin-top: 40px;
+}
+
+.plant-detail__related-title {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin: 0 0 20px;
+}
+
+@media (max-width: 800px) {
+  .plant-detail__hero {
+    grid-template-columns: 1fr;
+  }
+
+  .plant-detail__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .plant-detail {
+    padding: 24px 20px 48px;
+  }
+
+  .plant-detail__name {
+    font-size: 24px;
+  }
+}
