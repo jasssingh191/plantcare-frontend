@@ -5,6 +5,8 @@ import { DIRECTORY_PLANTS } from "../../utils/mockPlants";
 import { useAsyncData } from "../../hooks/useAsyncData";
 import "./ExplorePage.css";
 
+const EXPLORE_PLANT_LIMIT = 12;
+
 function ExplorePage() {
   const [query, setQuery] = useState("");
   const { data: plants, isLoading, hasError, run } = useAsyncData(
@@ -28,6 +30,7 @@ function ExplorePage() {
   };
 
   const allPlants = plants || [];
+  const visiblePlants = allPlants.slice(0, EXPLORE_PLANT_LIMIT);
   const showEmptyState = !isLoading && hasError && allPlants.length === 0;
 
   return (
@@ -68,7 +71,7 @@ function ExplorePage() {
           Nothing found or something went wrong.
         </p>
       ) : (
-        <PlantList plants={allPlants} />
+        <PlantList plants={visiblePlants} />
       )}
     </section>
   );
