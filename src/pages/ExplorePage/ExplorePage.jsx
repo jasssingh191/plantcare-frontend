@@ -9,7 +9,7 @@ const EXPLORE_PLANT_LIMIT = 12;
 
 function ExplorePage() {
   const [query, setQuery] = useState("");
-  const { data: plants, isLoading, hasError, run } = useAsyncData(
+  const { data: plants, isLoading, run } = useAsyncData(
     fetchRegionalPlants,
     () => DIRECTORY_PLANTS,
   );
@@ -31,7 +31,7 @@ function ExplorePage() {
 
   const allPlants = plants || [];
   const visiblePlants = allPlants.slice(0, EXPLORE_PLANT_LIMIT);
-  const showEmptyState = !isLoading && hasError && allPlants.length === 0;
+  const showEmptyState = !isLoading && allPlants.length === 0;
 
   return (
     <section className="explore-page">

@@ -10,7 +10,7 @@ const HOME_PLANT_LIMIT = 6;
 
 function HomePage() {
   const navigate = useNavigate();
-  const { data: plants, isLoading, hasError, run } = useAsyncData(
+  const { data: plants, isLoading, run } = useAsyncData(
     fetchRegionalPlants,
     () => REGION_PLANTS,
   );
@@ -30,7 +30,7 @@ function HomePage() {
   const allPlants = plants || [];
   const visiblePlants = allPlants.slice(0, HOME_PLANT_LIMIT);
   const hasMore = !isLoading && allPlants.length > HOME_PLANT_LIMIT;
-  const showEmptyState = !isLoading && hasError && allPlants.length === 0;
+  const showEmptyState = !isLoading && allPlants.length === 0;
 
   return (
     <div className="home-page">
