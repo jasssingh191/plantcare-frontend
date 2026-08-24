@@ -1,6 +1,8 @@
 🌿 PlantCare Frontend
 A modern, responsive, and intuitive web application designed for plant enthusiasts to discover plant species, explore detailed care guides, and curate their own personalized digital plant shelf.
 
+🔗 Live Demo: https://plantcare-frontend-omega.vercel.app
+
 ✨ Features
 🔍 Live Database Search: Search for indoor and outdoor plants dynamically using the external plant database API.
 
@@ -39,7 +41,7 @@ Installation
 Clone the repository:
 
 Bash
-git clone https://github.com/your-username/plantcare-frontend.git
+git clone https://github.com/jasssingh191/plantcare-frontend.git
 cd plantcare-frontend
 Install dependencies:
 
