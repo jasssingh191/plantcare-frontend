@@ -1,16 +1,70 @@
-# React + Vite
+# PlantCare
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A plant discovery app. Search or browse plants from a live database, view full care guides, and save plants to a personal shelf (requires an account).
 
-Currently, two official plugins are available:
+**Live demo:** https://plantcare-frontend-omega.vercel.app
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Features
 
-## React Compiler
+- Search and browse plants via the Perenual API
+- Plant detail pages: photo, description, watering/sunlight, care guide, tips, related plants
+- Account system with an auth-gated "Add to Shelf" flow
+- Profile page with a personal plant shelf and an edit/remove mode
+- Responsive layout, mobile nav included
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Tech stack
 
-## Expanding the ESLint configuration
+- React 19 + Vite
+- React Router v7
+- React Context API for auth/shelf state
+- Perenual API for plant data
+- Plain CSS with a shared design-token system (no UI framework)
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Setup
+
+```bash
+git clone https://github.com/jasssingh191/plantcare-frontend.git
+cd plantcare-frontend
+npm install
+```
+
+Create a `.env` file in the project root:
+
+```
+VITE_PERENUAL_API_KEY=your_api_key_here
+```
+
+Get a key from [perenual.com/subscription-api](https://perenual.com/subscription-api).
+
+```bash
+npm run dev
+```
+
+Open http://localhost:5173.
+
+## Security note
+
+`VITE_PERENUAL_API_KEY` is compiled into the client-side JS bundle at build time (standard for any `VITE_`-prefixed variable) — anyone can find it via browser dev tools. Fine for a school project against a free-tier key; not something to rely on if this key needs to stay private. Fixing that properly would mean adding a small backend/serverless proxy so the key never ships to the browser.
+
+## Known limitations
+
+- No real backend — login/register are mocked locally in `AuthContext` (any email/password works). Shelf and profile data live only in memory and reset on refresh.
+- Perenual's free tier caps out at 100 requests/day. The app falls back to hardcoded mock data if the API is unreachable or rate-limited.
+- `<Preloader />` exists (`src/components/Preloader`) but isn't wired into any loading state yet.
+
+## Project structure
+
+```
+src/
+├── assets/          # images, icons
+├── vendor/fonts/    # self-hosted Inter font files
+├── components/      # reusable UI (Navbar, PlantCard, Modal, Toast, Preloader, etc.)
+├── pages/           # route-level screens (Home, Explore, About, PlantDetail, Profile, Login, Register)
+├── contexts/         # AuthContext (auth, shelf, auth-modal state)
+├── hooks/           # useAsyncData (shared fetch/loading/error/fallback logic)
+├── utils/           # plantApi.js (Perenual integration), mockPlants.js, auth.js
+├── App.jsx          # routes + layout
+└── main.jsx         # entry point
+```
+
+See `NOTES.md` for how this was planned and built.
