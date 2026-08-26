@@ -1,8 +1,8 @@
-import { Routes, Route } from "react-router-dom";
+import { useEffect } from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider, useAuth } from "./contexts/AuthContext";
 import Navbar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer/Footer";
-import Modal from "./components/Modal/Modal";
 import ProtectedRoute from "./components/ProtectedRoute";
 import HomePage from "./pages/HomePage/HomePage";
 import ExplorePage from "./pages/ExplorePage/ExplorePage";
@@ -13,25 +13,40 @@ import LoginPage from "./pages/LoginPage/LoginPage";
 import RegisterPage from "./pages/RegisterPage/RegisterPage";
 import Preloader from "./components/Preloader/Preloader";
 
+// Login/Register only ever render as modals now. Both are always
+// mounted here so AuthContext can toggle whichever one is open.
 function AuthModal() {
   const { authModalView, openAuthModal, closeAuthModal } = useAuth();
 
   return (
-    <Modal isOpen={authModalView !== null} onClose={closeAuthModal}>
-      {authModalView === "login" ? (
-        <LoginPage
-          onSuccess={closeAuthModal}
-          onSwitchToRegister={() => openAuthModal("register")}
-        />
-      ) : null}
-      {authModalView === "register" ? (
-        <RegisterPage
-          onSuccess={closeAuthModal}
-          onSwitchToLogin={() => openAuthModal("login")}
-        />
-      ) : null}
-    </Modal>
+    <>
+      <LoginPage
+        isOpen={authModalView === "login"}
+        onClose={closeAuthModal}
+        onSuccess={closeAuthModal}
+        onSwitchToRegister={() => openAuthModal("register")}
+      />
+      <RegisterPage
+        isOpen={authModalView === "register"}
+        onClose={closeAuthModal}
+        onSuccess={closeAuthModal}
+        onSwitchToLogin={() => openAuthModal("login")}
+      />
+    </>
   );
+}
+
+// Handles direct visits/redirects to /login and /register (e.g. from
+// ProtectedRoute, a bookmark, or a typed URL) by opening the shared
+// auth modal over the home page instead of rendering a separate page.
+function AuthRedirect({ view }) {
+  const { openAuthModal } = useAuth();
+
+  useEffect(() => {
+    openAuthModal(view);
+  }, [view, openAuthModal]);
+
+  return <Navigate to="/" replace />;
 }
 
 function App() {
@@ -56,8 +71,8 @@ function App() {
                 </ProtectedRoute>
               }
             />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/register" element={<RegisterPage />} />
+            <Route path="/login" element={<AuthRedirect view="login" />} />
+            <Route path="/register" element={<AuthRedirect view="register" />} />
             {/* Temporary — for manually previewing <Preloader />. Remove before Stage 1.2. */}
             <Route path="/_preloader-preview" element={<Preloader />} />
           </Routes>

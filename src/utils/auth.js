@@ -1,41 +1,34 @@
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "";
 
-export async function loginRequest(credentials) {
-  const response = await fetch(`${API_BASE_URL}/auth/login`, {
+function checkResponse(res) {
+  if (res.ok) {
+    return res.json();
+  }
+  return Promise.reject(`Error ${res.status}`);
+}
+
+function request(url, options) {
+  return fetch(url, options).then(checkResponse);
+}
+
+export function loginRequest(credentials) {
+  return request(`${API_BASE_URL}/auth/login`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(credentials),
   });
-
-  if (!response.ok) {
-    throw new Error("Login failed");
-  }
-
-  return response.json();
 }
 
-export async function registerRequest(details) {
-  const response = await fetch(`${API_BASE_URL}/auth/register`, {
+export function registerRequest(details) {
+  return request(`${API_BASE_URL}/auth/register`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(details),
   });
-
-  if (!response.ok) {
-    throw new Error("Registration failed");
-  }
-
-  return response.json();
 }
 
-export async function checkTokenRequest(token) {
-  const response = await fetch(`${API_BASE_URL}/auth/me`, {
+export function checkTokenRequest(token) {
+  return request(`${API_BASE_URL}/auth/me`, {
     headers: { Authorization: `Bearer ${token}` },
   });
-
-  if (!response.ok) {
-    throw new Error("Invalid or expired token");
-  }
-
-  return response.json();
 }

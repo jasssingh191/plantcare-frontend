@@ -5,9 +5,11 @@ import favoriteHoverIcon from "../../assets/favorite-hover.png";
 import favoriteMarkedIcon from "../../assets/favorite-marked.png";
 import closeDefaultIcon from "../../assets/close-default.png";
 import closeHoverIcon from "../../assets/close-hover-click.png";
+import { useAuth } from "../../contexts/AuthContext";
 import "./PlantCard.css";
 
 function PlantCard({ id, name, sci, imageUrl, showRemove = false, onRemove }) {
+  const { user, openAuthModal } = useAuth();
   const [imageFailed, setImageFailed] = useState(false);
   const [isFavorited, setIsFavorited] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
@@ -21,6 +23,20 @@ function PlantCard({ id, name, sci, imageUrl, showRemove = false, onRemove }) {
     : favoriteDefaultIcon;
 
   const removeIcon = isRemoveHovering ? closeHoverIcon : closeDefaultIcon;
+
+  const handleFavoriteClick = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+
+    // Plants can only be favorited by a logged-in user — prompt them
+    // to log in instead of toggling the favorite state.
+    if (!user) {
+      openAuthModal("login");
+      return;
+    }
+
+    setIsFavorited((prev) => !prev);
+  };
 
   return (
     <article className="plant-card">
@@ -50,7 +66,7 @@ function PlantCard({ id, name, sci, imageUrl, showRemove = false, onRemove }) {
             >
               <img
                 src={removeIcon}
-                alt=""
+                alt="Remove icon"
                 className="plant-card__remove-icon"
                 draggable={false}
               />
@@ -60,18 +76,20 @@ function PlantCard({ id, name, sci, imageUrl, showRemove = false, onRemove }) {
               type="button"
               className="plant-card__favorite"
               aria-pressed={isFavorited}
-              aria-label={isFavorited ? "Remove from favorites" : "Add to favorites"}
+              aria-label={
+                user
+                  ? isFavorited
+                    ? "Remove from favorites"
+                    : "Add to favorites"
+                  : "Log in to favorite this plant"
+              }
               onMouseEnter={() => setIsHovering(true)}
               onMouseLeave={() => setIsHovering(false)}
-              onClick={(event) => {
-                event.preventDefault();
-                event.stopPropagation();
-                setIsFavorited((prev) => !prev);
-              }}
+              onClick={handleFavoriteClick}
             >
               <img
                 src={favoriteIcon}
-                alt=""
+                alt="Bookmark icon"
                 className="plant-card__favorite-icon"
                 draggable={false}
               />

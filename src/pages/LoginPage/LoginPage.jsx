@@ -1,70 +1,72 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
-import "./LoginPage.css";
+import { useFormAndValidation } from "../../hooks/useFormAndValidation";
+import ModalWithForm from "../../components/ModalWithForm/ModalWithForm";
 
-function LoginPage({ onSuccess, onSwitchToRegister }) {
+function LoginPage({ isOpen, onClose, onSuccess, onSwitchToRegister }) {
   const { login } = useAuth();
-  const navigate = useNavigate();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const { values, handleChange, errors, isValid, resetForm } = useFormAndValidation();
+  const [submitError, setSubmitError] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError("");
+    setSubmitError("");
     try {
-      await login({ email, password });
-      if (onSuccess) onSuccess();
-      else navigate("/");
+      await login({ email: values.email, password: values.password });
+      resetForm();
+      onSuccess();
     } catch {
-      setError("Invalid email or password.");
+      setSubmitError("Invalid email or password.");
     }
   };
 
-  const handleSwitch = () => {
-    if (onSwitchToRegister) onSwitchToRegister();
-    else navigate("/register");
-  };
-
   return (
-    <section className="login-page">
-      <h2 className="login-page__title">Log in to PlantCare</h2>
-      <form className="login-page__form" onSubmit={handleSubmit}>
-        <div className="login-page__field">
-          <label htmlFor="login-email">Email</label>
-          <input
-            id="login-email"
-            type="email"
-            placeholder="name@email.com"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
-        <div className="login-page__field">
-          <label htmlFor="login-password">Password</label>
-          <input
-            id="login-password"
-            type="password"
-            placeholder="Enter your password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-        {error && <p className="login-page__error">{error}</p>}
-        <button type="submit" className="login-page__submit">
-          Log in
-        </button>
-      </form>
-      <p className="login-page__switch">
-        Don't have an account?{" "}
-        <button type="button" onClick={handleSwitch}>
-          Sign up
-        </button>
-      </p>
-    </section>
+    <ModalWithForm
+      isOpen={isOpen}
+      onClose={onClose}
+      title="Log in to PlantCare"
+      name="login"
+      buttonText="Log in"
+      onSubmit={handleSubmit}
+      isValid={isValid}
+      footer={
+        <p className="modal-form__switch">
+          Don't have an account?{" "}
+          <button type="button" onClick={onSwitchToRegister}>
+            Sign up
+          </button>
+        </p>
+      }
+    >
+      <div className="modal-form-field">
+        <label htmlFor="login-email">Email</label>
+        <input
+          id="login-email"
+          name="email"
+          type="email"
+          placeholder="name@email.com"
+          value={values.email || ""}
+          onChange={handleChange}
+          required
+        />
+        {errors.email && <p className="modal-form-field__error">{errors.email}</p>}
+      </div>
+      <div className="modal-form-field">
+        <label htmlFor="login-password">Password</label>
+        <input
+          id="login-password"
+          name="password"
+          type="password"
+          placeholder="Enter your password"
+          value={values.password || ""}
+          onChange={handleChange}
+          required
+          minLength={6}
+        />
+        {errors.password && <p className="modal-form-field__error">{errors.password}</p>}
+      </div>
+      {submitError && <p className="modal-form__error">{submitError}</p>}
+    </ModalWithForm>
   );
 }
 

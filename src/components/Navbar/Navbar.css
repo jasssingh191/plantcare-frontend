@@ -211,12 +211,18 @@
 
   .navbar__mobile-auth .auth,
   .navbar__mobile-auth .auth--signed-in {
+    display: flex;
+    align-items: center;
     width: 100%;
   }
 
   .navbar__mobile-auth .auth .btn-pill {
     flex: 1;
     text-align: center;
+  }
+
+  .navbar__mobile-auth .auth--signed-in {
+    justify-content: space-between;
   }
 }
 
