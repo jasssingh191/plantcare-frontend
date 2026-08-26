@@ -172,6 +172,17 @@
 }
 
 @media (max-width: 720px) {
+  .navbar {
+    /* Below this width, .nav-links is display:none, which removes it
+       from grid placement entirely (not just hides it) — with only
+       the logo and .navbar__right left, the 3-column grid shuffles
+       them into columns 1-2 and leaves column 3 (the right side)
+       empty. Flex + space-between isn't affected by that, since it
+       only has to place whatever's actually still visible. */
+    display: flex;
+    justify-content: space-between;
+  }
+
   .navbar .nav-links {
     display: none;
   }
