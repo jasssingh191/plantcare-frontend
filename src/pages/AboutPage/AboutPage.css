@@ -1,0 +1,47 @@
+.about-page {
+  max-width: 800px;
+  margin: 40px auto 64px;
+  padding: 0 24px;
+}
+
+.about-page__card {
+  background: var(--surface-card);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  padding: 40px;
+  text-align: left;
+}
+
+.about-page__title {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin: 0 0 16px;
+}
+
+.about-page__heading {
+  font-size: 16.8px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 24px 0 8px;
+}
+
+.about-page__text {
+  font-size: 14.4px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin: 0;
+}
+
+.about-page__list {
+  margin: 0;
+  padding-left: 17.6px;
+  font-size: 14.4px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+.about-page__list li {
+  margin-bottom: 4px;
+}

@@ -1,0 +1,122 @@
+.plant-card {
+  background: var(--surface-card);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+}
+
+.plant-card__link {
+  display: block;
+  color: inherit;
+}
+
+.plant-card__preview {
+  position: relative;
+  height: 140px;
+  background: #e6f7f0;
+}
+
+.plant-card__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.plant-card__favorite {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: none;
+  border-radius: 10px;
+  background: var(--surface-card);
+  box-shadow: var(--shadow-card);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.plant-card__favorite-icon {
+  width: 24px;
+  height: 24px;
+  display: block;
+  pointer-events: none;
+}
+
+.plant-card__remove {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: none;
+  background: none;
+  box-shadow: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.plant-card__remove-icon {
+  width: 18px;
+  height: 18px;
+  display: block;
+  pointer-events: none;
+}
+
+.plant-card__body {
+  padding: 16px 18px 18px;
+}
+
+.plant-card__name {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 4px;
+}
+
+.plant-card__scientific {
+  font-size: 14px;
+  font-style: italic;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.plant-card--skeleton {
+  pointer-events: none;
+}
+
+.plant-card--skeleton .plant-card__preview {
+  background: var(--border-soft);
+}
+
+.skeleton-line {
+  height: 12px;
+  border-radius: var(--radius-pill);
+  background: var(--border-soft);
+  animation: skeleton-pulse 1.4s ease-in-out infinite;
+}
+
+.skeleton-line--title {
+  width: 70%;
+  height: 16px;
+  margin-bottom: 10px;
+}
+
+.skeleton-line--subtitle {
+  width: 45%;
+}
+
+@keyframes skeleton-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+}

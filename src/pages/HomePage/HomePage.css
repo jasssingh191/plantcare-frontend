@@ -1,0 +1,57 @@
+.home-page {
+  flex: 1;
+}
+
+.region-plants {
+  max-width: 1080px;
+  margin: 24px auto 64px;
+  padding: 0 24px;
+}
+
+.region-plants__header {
+  margin-bottom: 24px;
+}
+
+.region-plants__title {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin: 0 0 6px;
+}
+
+.region-plants__subtitle {
+  font-size: 15.2px;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.region-plants__status {
+  font-size: 14px;
+  color: var(--text-secondary);
+  text-align: center;
+  padding: 48px 24px;
+  background: var(--surface-card);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-card);
+}
+
+.region-plants__view-more {
+  display: flex;
+  justify-content: center;
+  margin-top: 32px;
+}
+
+.btn-view-more {
+  padding: 14px 32px;
+  border-radius: var(--radius-pill);
+  background: var(--accent-leaf-vibrant);
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  transition: opacity 0.2s ease;
+}
+
+.btn-view-more:hover {
+  opacity: 0.9;
+}
